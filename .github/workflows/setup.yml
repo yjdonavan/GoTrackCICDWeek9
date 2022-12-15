@@ -10,11 +10,28 @@ jobs:
     steps:
     - name: checkout my codes
       uses: actions/checkout@v2
-      with: 
-        repository: lowkh2/GoTrackRemoteExample
-        path: 
-        token: 
     - name: print and list out content
       run: |
         ls
         echo Hello There!
+    - name: Get remote hidden repo
+      uses: actions/checkout@v2
+      with: 
+        repository: lowkh2/GoTrackRemoteExample
+        path: remove
+        token: ${{ secrets.<token_name> }}
+        
+    - name: show hidden file
+      run: |
+        cd remote
+        ls
+        cat mySecret.txt
+    - name: Setup Go environment
+      uses: actions/setup-go@v3.5.0
+      with:
+        # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+        go-version: 1.19.3 
+    - name: Go installed
+      run: |
+        go version
+        go test -v
