@@ -10,6 +10,10 @@ jobs:
     steps:
     - name: checkout my codes
       uses: actions/checkout@v2
+      with: 
+        repository: lowkh2/GoTrackRemoteExample
+        path: 
+        token: 
     - name: print and list out content
       run: |
         ls
