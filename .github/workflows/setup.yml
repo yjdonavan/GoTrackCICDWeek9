@@ -1,1 +1,16 @@
-
+name : Demo Virtual Machine
+on:
+  push:
+    branches: [main]
+    
+jobs:
+  builds:
+    name: Virtual Machine
+    runs-on: Ubuntu-latest
+    steps:
+    - name: checkout my codes
+      uses: actions/checkout@v2
+    - name: print and list out content
+      run: |
+        ls
+        echo Hello There!
