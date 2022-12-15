@@ -19,7 +19,7 @@ jobs:
       with: 
         repository: lowkh2/GoTrackRemoteExample
         path: remove
-        token: ${{ secrets.<token_name> }}
+        token: ${{ secrets.GOTRACK }}
         
     - name: show hidden file
       run: |
