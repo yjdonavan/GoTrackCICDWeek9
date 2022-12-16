@@ -8,24 +8,23 @@ jobs:
     name: Virtual Machine
     runs-on: Ubuntu-latest
     steps:
-    - name: checkout my codes
-      uses: actions/checkout@v2
-    - name: print and list out content
-      run: |
-        ls
-        echo Hello There!
-    - name: Get remote hidden repo
-      uses: actions/checkout@v2
-      with:
-        repository: Lowkh2/GoTrackRemoteExample
-        path: remote
-        token: ${{ secrets.ACTIONS_REMOTE_CHECKOUTS }}
-        
-    - name: show hidden file
-      run: |
-        cd remote
-        ls
-        cat mySecret.txt
+    #- name: checkout my codes
+    #  uses: actions/checkout@v2
+    #- name: print and list out content
+    #  run: |
+    #    ls
+    #    echo Hello There!
+    #- name: Get remote hidden repo
+    #  uses: actions/checkout@v2
+    #  with:
+    #    repository: Lowkh2/GoTrackRemoteExample
+    #    path: remote
+    #   token: ${{ secrets.ACTIONS_REMOTE_CHECKOUTS }}   
+    # - name: show hidden file
+    #  run: |
+    #    cd remote
+    #    ls
+    #    cat mySecret.txt
     - name: Setup Go environment
       uses: actions/setup-go@v3.5.0
       with:
