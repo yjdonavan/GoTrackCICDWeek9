@@ -26,5 +26,5 @@ func Divide(val1, val2 int) float64 {
 }
 
 func main (){
-	
+	fmt.Println("Hello from delivery!")
 }
