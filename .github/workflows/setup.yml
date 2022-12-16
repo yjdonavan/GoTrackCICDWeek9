@@ -35,13 +35,31 @@ jobs:
     #    go version
     #    go test -v
     
+   
     - name: Install dependencies for GO
       run: |
         go get github.com/franela/goblin 
-        go get github.com/tebeka/go2xunit 
+        go install gotest.tools/gotestsum@latest
         go test -v
-        go test -v | go2xunit -output report.xml 
+        go test -v | gotestsum --junitfile report.xml
         ls 
+    - if: ${{ success() }}
+      name: Create Upload directory
+      run: mkdir upload
+    
+    - name: Prepare Documents
+      run: mv report.xml ./upload
+    
+    - name: Prepare artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: assetDocuments
+        path: upload
+    
+    - name: Download Content
+      uses: actions/download-artifact@v2
+      with:
+        name: assetDocuments     
         
     - if: ${{ failure()}}
       #uses: JasonEtco/create-an-issue@v2
@@ -60,7 +78,7 @@ jobs:
           Workflow name - `${{ github.workflow }}`
           Job -           `${{ github.job }}`
           status -        `${{ job.status }}`
-        assignees: yjdonavan
+        assignees: Lowkh
     
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
