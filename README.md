@@ -1,4 +1,4 @@
 # GoTrackDemoSystemBasic
 
 - GoTrack automation for CI/CD
-- Connected to Slack for any activity notification
+- Connected to Slack for Repository monitoring purposes
