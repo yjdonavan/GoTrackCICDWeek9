@@ -30,7 +30,40 @@ jobs:
       with:
         # The Go version to download (if necessary) and use. Supports semver spec and ranges.
         go-version: 1.19.3 
-    - name: Go installed
+    #- name: Go installed
+    #  run: |
+    #    go version
+    #    go test -v
+
+    - name: Install dependencies for GO
       run: |
-        go version
-        go test -v
+        go get github.com/franela/goblin # Adds package for Goblin testing
+        go get github.com/tebeka/go2xunit # Adds package for conversion
+        go test -v # Command to run go test
+        go test -v | go2xunit > report.xml # run test again and output as report.xml (to show the effect)
+        ls # verify that the report is indeed created
+        
+    - if: ${{ failure()}}
+      #uses: JasonEtco/create-an-issue@v2
+      #env:
+      #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #with:
+      #  filename: .github/template.md
+      uses: dacbd/create-issue-action@main
+      with:
+        token: ${{ github.token }}
+        title: Action workflow failed.
+        body: |
+          ### Context
+          [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          [Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
+          Workflow name - `${{ github.workflow }}`
+          Job -           `${{ github.job }}`
+          status -        `${{ job.status }}`
+        assignees: Lowkh
+    
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        junit_files: "report.xml"    
