@@ -1,4 +1,4 @@
-name : Demo Virtual Machine
+name : Virtual Machine
 on:
   push:
     branches: [main]
@@ -85,3 +85,11 @@ jobs:
       if: always()
       with:
         junit_files: "report.xml"    
+
+    - name: Slack-send
+      # You may pin to the exact commit or the version.
+      # uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        channel-id: gotrack-cicd
+        slack-message: Virtual Machine CI run
