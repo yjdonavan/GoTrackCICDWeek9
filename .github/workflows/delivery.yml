@@ -1,4 +1,4 @@
-name : Demo Delivery
+name : Delivery
 on:
   push:
     tags: 
