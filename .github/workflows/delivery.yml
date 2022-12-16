@@ -1,0 +1,44 @@
+name : Demo Delivery
+on:
+  push:
+    tags: 
+      - 'v*'
+    
+jobs:
+  build:
+    name: Virtual Machine
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout my codes
+      uses: actions/checkout@v2
+
+    - name: Setup Go environment
+      uses: actions/setup-go@v3.5.0
+      with:
+        # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+        go-version: 1.19.3 # optional
+  
+    - if: ${{ failure()}}
+      uses: dacbd/create-issue-action@main
+      with:
+        token: ${{ github.token }}
+        title: Action workflow failed.
+        body: |
+          ### Context
+          [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          [Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
+          Workflow name - `${{ github.workflow }}`
+          Job -           `${{ github.job }}`
+          status -        `${{ job.status }}`
+        assignees: yjdonavan
+    
+    - name: Validate the Go Codes
+      uses: goreleaser/goreleaser-action@v2.6.1
+      with:
+        args: check
+    - name: Release the Go Codes
+      uses: goreleaser/goreleaser-action@v2.6.1
+      with:
+        args: release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
