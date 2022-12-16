@@ -38,7 +38,7 @@ jobs:
     - name: Install dependencies for GO
       run: |
         go get github.com/franela/goblin 
-# Adds package for Goblin testing
+# Adds package for Goblin testing 
         go get github.com/tebeka/go2xunit
 # Adds package for conversion
         go test -v  
@@ -65,7 +65,7 @@ jobs:
           Workflow name - `${{ github.workflow }}`
           Job -           `${{ github.job }}`
           status -        `${{ job.status }}`
-        assignees: Lowkh
+        assignees: yjdonavan
     
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
