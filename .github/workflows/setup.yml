@@ -34,15 +34,14 @@ jobs:
     #  run: |
     #    go version
     #    go test -v
-
+    
     - name: Install dependencies for GO
       run: |
         go get github.com/franela/goblin 
-        go get github.com/tebeka/go2xunit
-        go test -v  
+        go get github.com/tebeka/go2xunit 
+        go test -v
         go test -v | go2xunit -output report.xml 
         ls 
-# verify that the report is indeed created
         
     - if: ${{ failure()}}
       #uses: JasonEtco/create-an-issue@v2
