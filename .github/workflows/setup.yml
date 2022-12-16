@@ -16,8 +16,8 @@ jobs:
         echo Hello There!
     - name: Get remote hidden repo
       uses: actions/checkout@v2
-      with: 
-        repository: lowkh2/GoTrackRemoteExample
+      with:
+        repository: Lowkh2/GoTrackRemoteExample
         path: remote
         token: ${{ secrets.GOTRACK }}
         
